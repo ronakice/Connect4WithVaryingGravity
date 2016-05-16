@@ -1,26 +1,37 @@
 import sys
 from time import sleep
+
 def checkcolumn(c):
     #checkcolumn(c) checks if the cth column has atleast one empty spot
     if board[0][c-1] == '.':
         return True
     return False   
+    
 def checkcolumn2(c):
     #checkcolumn2(c) checks if the cth column has atleast one empty spot(when force of gravity is pointing upwards)
     if board[5][c-1] == '.':
         return True
     return False   
+    
 def checkrow(c):
     #checkrow(c) checks to see if the cth row has atleast one empty spot(when the force of gravity is pointing rightwards)
     if board[c-1][0] == '.':
         return True
     return False
+    
 def checkrow2(c):
     #checkrow(c) checks to see if the cth row has atleast one empty spot(when the force of gravity is pointing leftwards)
     if board[c-1][6] == '.':
         return True
     return False
+    
 def RotGrav(posn):
+    """
+    Shifts the force of gravity to downwards if posn=0
+    Shifts the force of gravity to rightwards if posn=2
+    Shifts the force of gravity to upwards if posn=2
+    Shifts the force of gravity to leftwards if posn=2
+    """
     if posn==0:
         for i in range(0,7):
             b=['.', '.', '.' ,'.', '.', '.']
@@ -64,12 +75,7 @@ def RotGrav(posn):
                     i=i+1
             board[temp]=b
             temp=temp+1 
-            
-                    
-                    
-                    
-        
-        
+                   
 def checkwin(ab):
     #checkwin(ab) prints which player wins if any and returns True if a player has won or returns False otherwise
     if ab==0:
@@ -117,6 +123,7 @@ def startGame() :
     print ""
     GameOn()
 def GameOn():
+    #The Game begins.
     t=0 
     while(t<=42):
         temp=1
@@ -220,10 +227,10 @@ def GameOn():
                         for i in range(0,7):
                             if board[c-1][i]=='.':
                                 if t%2==0:
-                                    board[c-1][1]='X'
+                                    board[c-1][i]='X'
                                     break
                                 else:
-                                    board[c-1][1]='O'
+                                    board[c-1][i]='O'
                                     break                        
                         k=1   
         if checkwin(t%2):
@@ -234,4 +241,16 @@ def GameOn():
             break
         t=t+1;
         RotGrav(t%4)
+        if checkwin(t%2):
+            for row in board:
+                for x in row:
+                    sys.stdout.write(x+" ")
+                print ""
+            break
+        if checkwin((t+1)%2):
+            for row in board:
+                for x in row:
+                    sys.stdout.write(x+" ")
+                print ""
+            break
 startGame()
