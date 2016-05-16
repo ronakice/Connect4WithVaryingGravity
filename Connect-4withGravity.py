@@ -107,7 +107,7 @@ def startGame() :
         sys.stdout.write(char)
         sys.stdout.flush()
     print ""
-    words = "Welcome to my Connect-4 Game! Do you know the rules to the game?(Y/N)"
+    words = "Welcome to my Connect-4 with varying Gravity Game! Do you know the rules to the game?(Y/N)"
     #Experimental Typing
     for char in words:
         sleep(0.05)
@@ -116,6 +116,12 @@ def startGame() :
     c=raw_input("")
     if c=="N":
         words = "The rules of this game are simple you connect 4 of X's or the O's, vertically,horizontally or diagonally to win the game."
+        for char in words:
+            sleep(0.05)
+            sys.stdout.write(char)
+            sys.stdout.flush()
+        print ""
+        words = "But wait,there's a twist.Quite literally... The force of gravity acting on the board keeps rotating anti-clockwise by 90 degrees after each turn"
         for char in words:
             sleep(0.05)
             sys.stdout.write(char)
@@ -144,6 +150,7 @@ def GameOn():
             break  
         k=0  
         if t%4==0:
+            print("Force of gravity is acting downwards.")
             while(k==0):
                 c=raw_input("Choose your column, mate "+str(t%2 + 1)+ "!(1-7): ")
                 if c not in "0123456789" or c=="":
@@ -168,6 +175,7 @@ def GameOn():
                         board.reverse()                       
                         k=1   
         elif t%4==2:
+            print("Force of gravity is acting upwards.")
             while(k==0):
                 c=raw_input("Choose your column, mate "+str(t%2 + 1)+ "!(1-7): ")
                 if c not in "0123456789" or c=="":
@@ -190,6 +198,7 @@ def GameOn():
                                     break                        
                         k=1   
         elif t%4==1:
+            print("Force of gravity is acting leftwards.")
             while(k==0):
                 c=raw_input("Choose your row, mate "+str(t%2 + 1)+ "!(1-6): ")
                 if c not in "0123456789" or c=="":
@@ -212,6 +221,7 @@ def GameOn():
                                     break                        
                         k=1 
         elif t%4==3:
+            print("Force of gravity is acting rightwards.")
             while(k==0):
                 c=raw_input("Choose your row, mate "+str(t%2 + 1)+ "!(1-6): ")
                 if c not in "0123456789" or c=="":
@@ -239,6 +249,7 @@ def GameOn():
                     sys.stdout.write(x+" ")
                 print ""
             break
+        print ""
         t=t+1;
         RotGrav(t%4)
         if checkwin(t%2):
